@@ -162,5 +162,11 @@ public class DataUser {
         return buses;
     }
 
+    public List<Bus> findBuses(String findBus){
+        Cursor cursor = database.rawQuery("select * from buses where route ='"+findBus+"' or neighborhood = '"+findBus+"'", null);
+        List<Bus> buses = cursorToListBus(cursor);
+        return buses;
+    }
+
 
 }

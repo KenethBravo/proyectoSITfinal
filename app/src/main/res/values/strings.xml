@@ -55,4 +55,5 @@
     <string name="str_itm_neighborhood">Barrio</string>
     <string name="str_itm_route_bus">C?</string>
     <string name="str_itm_neighborhood_bus">\???????????</string>
+    <string name="txt_search_bus">No se encontro niguna ruta o barrio con: </string>
 </resources>

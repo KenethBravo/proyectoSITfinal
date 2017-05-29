@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -20,6 +21,8 @@ import com.example.andresteran_i014213.projectofinal_sti.Adapters.BusAdapter;
 import com.example.andresteran_i014213.projectofinal_sti.Data.DataUser;
 import com.example.andresteran_i014213.projectofinal_sti.Models.Bus;
 import com.example.andresteran_i014213.projectofinal_sti.R;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -35,6 +38,8 @@ public class SearchFragment extends Fragment {
     BusAdapter busAdapter;
     Button btnFindBus;
     EditText findBus;
+    String find ="";
+    CheckBox favoritesBus;
 
 
     public SearchFragment() {
@@ -52,20 +57,29 @@ public class SearchFragment extends Fragment {
         findBus = (EditText) view.findViewById(R.id.id_fragment_search_bus);
         listView = (ListView) view.findViewById(R.id.id_fragment_list_buses);
         btnFindBus = (Button) view.findViewById(R.id.id_btn_fragment_search_bus);
+        favoritesBus = (CheckBox) view.findViewById(R.id.id_item_chb_favorite);
+
         dataBus = new DataUser(getActivity());
         dataBus.open();
+
+        busesList = dataBus.findAllBuses();
+        if (busesList.size()<=0) {
+            createData();
+            //busesList = dataBus.findAllBuses();
+            //busAdapter = new BusAdapter(getActivity().getApplicationContext(), busesList);
+            //listView.setAdapter(busAdapter);
+        }//else{
+            //busAdapter = new BusAdapter(getActivity().getApplicationContext(), busesList);
+            //listView.setAdapter(busAdapter);
+        //}
 
         btnFindBus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Para buscar", Toast.LENGTH_SHORT).show();
-
-                busesList = dataBus.findAllBuses();
-                if (busesList.size()<=0) {
-                    createData();
-                    busesList = dataBus.findAllBuses();
-                    busAdapter = new BusAdapter(getActivity().getApplicationContext(), busesList);
-                    listView.setAdapter(busAdapter);
+                find= findBus.getText().toString();
+                busesList = dataBus.findBuses(find.toUpperCase());
+                if (busesList.size()<=0){
+                    Toast.makeText(getActivity().getApplicationContext(), getString(R.string.txt_search_bus) + findBus.getText().toString()  , Toast.LENGTH_SHORT).show();
                 }else{
                     busAdapter = new BusAdapter(getActivity().getApplicationContext(), busesList);
                     listView.setAdapter(busAdapter);

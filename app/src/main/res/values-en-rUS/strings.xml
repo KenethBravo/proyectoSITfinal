@@ -40,6 +40,21 @@
     <string name="txt_sign_off">Cerrando Sesion</string>
     <string name="btn_fragment_profile_sign_off">Cerrar Sesion</string>
     <string name="txt_title_toolbar_search">Busca tu Ruta</string>
+    <string name="name_user">Pedro Campos</string>
+    <string name="str_profile_Info">SIT user, current residence in San Juan de Pasto in the neighborhood Panoramico</string>
+    <string name="info_profile2">PROFESSION OR OFFICE: Student of Systems Engineer at IU Cesmag</string>
+    <string name="str_profile_data">Personal information</string>
+    <string name="info_profile_born">DATE OF BIRTH: March 25, 1997</string>
+    <string name="info_profile_Route">ROUTE OF PREFERENCE: C15</string>
+    <string name="info_city">CITY OF ORIGIN: San Juan de Pasto</string>
+    <string name="info_profile_photo">Photos</string>
+    <string name="Ventana_search">Search</string>
+    <string name="Info_Search">Search for your SIT route</string>
+    <string name="txt_home_info">SIT system users</string>
+    <string name="info_profile_email">pedroCampos@gmail.com</string>
+    <string name="str_fragment_profile_email">Email:</string>
+    <string name="str_itm_route">RUTA</string>
+    <string name="str_itm_neighborhood">Barrio</string>
 
 
 </resources>

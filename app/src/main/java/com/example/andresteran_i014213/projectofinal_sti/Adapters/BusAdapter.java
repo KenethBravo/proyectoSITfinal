@@ -47,7 +47,7 @@ public class BusAdapter  extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null){
-            convertView = layoutInflater.inflate(R.layout.cardview_picture, parent, false);
+            convertView = layoutInflater.inflate(R.layout.item_bus, parent, false);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         }else {
@@ -66,8 +66,8 @@ public class BusAdapter  extends BaseAdapter {
         TextView neighborhood;
 
         public ViewHolder(View item) {
-            route = (TextView) item.findViewById(R.id.id_txt_username_cad);
-            neighborhood = (TextView) item.findViewById(R.id.id_card_time);
+            route = (TextView) item.findViewById(R.id.id_item_bus_route);
+            neighborhood = (TextView) item.findViewById(R.id.id_item_bus_neighborhood);
         }
     }
 }

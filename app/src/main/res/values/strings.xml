@@ -38,4 +38,21 @@
     <string name="txt_sign_off">Cerrando Sesión</string>
     <string name="btn_fragment_profile_sign_off">Cerrar Sesión</string>
     <string name="txt_title_toolbar_search">Busca tu Ruta</string>
+    <string name="name_user">Pedro Campos</string>
+    <string name="str_profile_Info">Usuario del SIT, recidencia acutal en San Juan de Pasto en el barrio Panoramico</string>
+    <string name="info_profile2">PROFESIÓN U OFICIO: Estudiante de Ing. de Sistemas en la IU Cesmag</string>
+    <string name="str_profile_data">Informacion Personal</string>
+    <string name="info_profile_born">FECHA DE NACIMIENTO: Marzo 25 de 1997</string>
+    <string name="info_profile_Route">RUTA DE PREFERENCIA: C15</string>
+    <string name="info_city">CIUDAD DE ORIGEN: San Juan de Pasto</string>
+    <string name="info_profile_photo">Fotos</string>
+    <string name="Ventana_search">Buscar</string>
+    <string name="Info_Search">Busca tu ruta del SIT</string>
+    <string name="txt_home_info">Usuarios del sistemas SIT</string>
+    <string name="info_profile_email">pedroCampos@gmail.com</string>
+    <string name="str_fragment_profile_email">Correo:</string>
+    <string name="str_itm_route">RUTA</string>
+    <string name="str_itm_neighborhood">Barrio</string>
+    <string name="str_itm_route_bus">C?</string>
+    <string name="str_itm_neighborhood_bus">\???????????</string>
 </resources>

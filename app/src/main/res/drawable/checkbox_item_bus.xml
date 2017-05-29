@@ -5,14 +5,13 @@
 
     <item
 
-        android:drawable="@drawable/like_48"
+        android:drawable="@drawable/star_48"
         android:state_checked="false"/>
     <item
-        android:drawable="@drawable/hearts_48"
+        android:drawable="@drawable/christmas_star_48"
         android:state_checked="true"/>
 
     <item
-        android:drawable="@drawable/like_48"/>
-
+        android:drawable="@drawable/star_48"/>
 
 </selector>

@@ -20,13 +20,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"/>
+ <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     android:weightSum="1"
+     android:orientation="vertical">
 
         <ListView
-            android:id="@+id/id_lv_mylist"
+            android:id="@+id/id_lv_fovorites"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="0.4">
         </ListView>
-
+ </LinearLayout>
 
     </LinearLayout>
 

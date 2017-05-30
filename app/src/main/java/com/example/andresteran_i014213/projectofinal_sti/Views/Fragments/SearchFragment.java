@@ -11,15 +11,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.andresteran_i014213.projectofinal_sti.Adapters.BusAdapter;
 import com.example.andresteran_i014213.projectofinal_sti.Data.DataUser;
+import com.example.andresteran_i014213.projectofinal_sti.LoginActivity;
 import com.example.andresteran_i014213.projectofinal_sti.Models.Bus;
+import com.example.andresteran_i014213.projectofinal_sti.Models.Favorites;
+import com.example.andresteran_i014213.projectofinal_sti.Models.User;
 import com.example.andresteran_i014213.projectofinal_sti.R;
 
 import org.w3c.dom.Text;
@@ -33,13 +38,14 @@ public class SearchFragment extends Fragment {
 
     View view;
     List<Bus> busesList;
-    DataUser dataBus;
+    public static DataUser dataBus;
     ListView listView;
     BusAdapter busAdapter;
     Button btnFindBus;
     EditText findBus;
     String find ="";
     CheckBox favoritesBus;
+    public static Bus busFavorite;
 
 
     public SearchFragment() {
@@ -63,6 +69,7 @@ public class SearchFragment extends Fragment {
         dataBus.open();
 
         busesList = dataBus.findAllBuses();
+
         if (busesList.size()<=0) {
             createData();
             //busesList = dataBus.findAllBuses();
@@ -86,6 +93,9 @@ public class SearchFragment extends Fragment {
                 }
             }
         });
+
+
+
         return view;
     }
 
@@ -185,6 +195,14 @@ public class SearchFragment extends Fragment {
         dataBus.createBus(bus);
 
 
+    }
+
+     public static void createDataFavorite(){
+
+        Favorites favorites = new Favorites();
+        favorites.setIdUser(LoginActivity.userLogin.getId());
+        favorites.setIdBus(SearchFragment.busFavorite.getId());
+        dataBus.createFavorites(favorites);
     }
 
 }

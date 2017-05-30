@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     DataUser dataUser;
     Button login;
     EditText usernameLogin,passwordLogin;
-    User userLogin;
+    public static User userLogin;
     List<User> userList;
     String[] findUser;
 

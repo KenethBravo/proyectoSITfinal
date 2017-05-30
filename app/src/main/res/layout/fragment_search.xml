@@ -10,15 +10,10 @@
 
     <include layout="@layout/actionbar_toolbar"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:fillViewport="true">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:orientation="vertical">
 
             <FrameLayout
@@ -92,27 +87,12 @@
 
             </FrameLayout>
 
-            <ScrollView
+            <ListView
+                android:id="@+id/id_fragment_list_buses"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
+                android:layout_height="match_parent">
+            </ListView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-                    <ListView
-                        android:id="@+id/id_fragment_list_buses"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                    </ListView>
-
-
-                </LinearLayout>
-            </ScrollView>
         </LinearLayout>
-    </ScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

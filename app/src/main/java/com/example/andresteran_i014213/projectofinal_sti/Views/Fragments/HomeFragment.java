@@ -17,13 +17,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.andresteran_i014213.projectofinal_sti.Adapters.BusAdapter;
+import com.example.andresteran_i014213.projectofinal_sti.Adapters.FavoritesAdapter;
 import com.example.andresteran_i014213.projectofinal_sti.Adapters.UserAdapter;
 import com.example.andresteran_i014213.projectofinal_sti.Data.DataUser;
 import com.example.andresteran_i014213.projectofinal_sti.HttpManager;
+import com.example.andresteran_i014213.projectofinal_sti.LoginActivity;
+import com.example.andresteran_i014213.projectofinal_sti.Models.Bus;
+import com.example.andresteran_i014213.projectofinal_sti.Models.Favorites;
 import com.example.andresteran_i014213.projectofinal_sti.Models.User;
 import com.example.andresteran_i014213.projectofinal_sti.Parser.Json;
 import com.example.andresteran_i014213.projectofinal_sti.R;
@@ -38,10 +44,14 @@ public class HomeFragment extends Fragment {
 
     View view;
     ProgressBar loader;
-    ListView lista;
+    ListView lista, listaFavor;
     List<User> myUser;
     UserAdapter adapterUser;
     DataUser dataUser;
+    List<Favorites> mysFavorites;
+    FavoritesAdapter adapterFavorites;
+    List<Bus> busList;
+    BusAdapter busAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -56,9 +66,10 @@ public class HomeFragment extends Fragment {
         loader = (ProgressBar) view.findViewById(R.id.loader);
         //myRecycler = (RecyclerView) view.findViewById(R.id.myRecycler);
         lista = (ListView) view.findViewById(R.id.id_lv_mylist);
+        listaFavor = (ListView) view.findViewById(R.id.id_lv_fovorites);
         dataUser = new DataUser(getActivity());
         dataUser.open();
-
+        LoginActivity.userLogin = dataUser.checkStatusLogin();
 
 
         //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -68,10 +79,16 @@ public class HomeFragment extends Fragment {
         setHasOptionsMenu(true); // para poder poner toolbar  en fragmento
         //onClickButton();
 
-        myUser = dataUser.findAll();
-        adapterUser = new UserAdapter(getActivity().getApplicationContext(), myUser);
-        lista.setAdapter(adapterUser);
 
+        //mysFavorites = dataUser.findAllFavorites();
+        //adapterFavorites = new FavoritesAdapter(getActivity().getApplicationContext(),mysFavorites);
+        //listaFavor.setAdapter(adapterFavorites);
+
+        busList = dataUser.listFavorites(LoginActivity.userLogin.getId());
+        if (busList.size()<=0) Toast.makeText(getActivity().getApplicationContext(), " no hay Favoritos", Toast.LENGTH_SHORT).show();
+        else {
+            busAdapter = new BusAdapter(getActivity().getApplicationContext(),busList);
+            listaFavor.setAdapter(busAdapter);}
         return view;
     }
 

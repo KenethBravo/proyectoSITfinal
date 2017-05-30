@@ -44,6 +44,18 @@ public class HelperUser extends SQLiteOpenHelper {
                     COLUMN_NEIGHBORHOD + " TEXT" +
                     ")";
 
+    public static final String TABLE_FAVORITES_BUSES_USERS="favoritesBusesUsers";
+    public static final String COLUMN_ID_USER = "idUser";
+    public static final String COLUMN_ID_BUS = "idBus";
+
+    public static final String TABLE_CREATE_FAVORITES =
+            "CREATE TABLE " + TABLE_FAVORITES_BUSES_USERS + " (" +
+                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_ID_USER + " INTEGER, " +
+                    COLUMN_ID_BUS + " INTEGER" +
+                    ")";
+
+
     public HelperUser(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -53,6 +65,7 @@ public class HelperUser extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_CREATE);
         db.execSQL(TABLE_CREATE_BUSES);
+        db.execSQL(TABLE_CREATE_FAVORITES);
         Log.i(LOGTAG, "Tabla de usuarios creada correctamente.");
     }
 
@@ -60,6 +73,7 @@ public class HelperUser extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_USERS);
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_BUSES);
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE_FAVORITES_BUSES_USERS);
         onCreate(db);
     }
 }

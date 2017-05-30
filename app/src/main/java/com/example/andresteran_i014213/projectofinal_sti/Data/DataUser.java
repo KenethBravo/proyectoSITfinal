@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.andresteran_i014213.projectofinal_sti.Helper.HelperUser;
 import com.example.andresteran_i014213.projectofinal_sti.LoginActivity;
 import com.example.andresteran_i014213.projectofinal_sti.Models.Bus;
+import com.example.andresteran_i014213.projectofinal_sti.Models.Favorites;
 import com.example.andresteran_i014213.projectofinal_sti.Models.User;
 
 import java.util.ArrayList;
@@ -130,6 +131,7 @@ public class DataUser {
         return userLogin;
     }
 
+///  buses
     public Bus createBus(Bus bus){
         ContentValues values = new ContentValues();
         values.put(HelperUser.COLUMN_ROUTE, bus.getRoute());
@@ -166,6 +168,47 @@ public class DataUser {
         Cursor cursor = database.rawQuery("select * from buses where route ='"+findBus+"' or neighborhood = '"+findBus+"'", null);
         List<Bus> buses = cursorToListBus(cursor);
         return buses;
+    }
+
+
+    // favoritos
+
+    public Favorites createFavorites(Favorites favorites){
+
+        ContentValues values = new ContentValues();
+        values.put(HelperUser.COLUMN_ID_USER,favorites.getIdUser());
+        values.put(HelperUser.COLUMN_ID_BUS,favorites.getIdBus());
+
+        long insertId = database.insert(HelperUser.TABLE_FAVORITES_BUSES_USERS, null, values);
+
+        favorites.setId(insertId);
+        return favorites;
+    }
+
+    public List<Favorites> cursorToListFavorites(Cursor cursor){
+        List<Favorites> favorites = new ArrayList<>();
+        if (cursor.getCount() > 0){
+            while (cursor.moveToNext()){
+                Favorites favorite = new Favorites();
+                favorite.setId(cursor.getLong(cursor.getColumnIndex(HelperUser.COLUMN_ID)));
+                favorite.setIdUser(cursor.getLong(cursor.getColumnIndex(HelperUser.COLUMN_ID_USER)));
+                favorite.setIdBus(cursor.getLong(cursor.getColumnIndex(HelperUser.COLUMN_ID_BUS)));
+                favorites.add(favorite);
+            }
+        }
+        return favorites;
+    }
+
+    public List<Favorites> findAllFavorites(){
+        Cursor cursor = database.rawQuery("select * from favoritesBusesUsers", null);
+        List<Favorites> favorites = cursorToListFavorites(cursor);
+        return favorites;
+    }
+
+    public List<Bus> listFavorites(long idUser){
+        Cursor cursor = database.rawQuery("select t1.id,t1.route,t1.neighborhood from buses as t1 join favoritesBusesUsers as t2 on t1.id = t2.idBus where t2.idUser = "+idUser, null);
+        List<Bus> favorites = cursorToListBus(cursor);
+        return favorites;
     }
 
 

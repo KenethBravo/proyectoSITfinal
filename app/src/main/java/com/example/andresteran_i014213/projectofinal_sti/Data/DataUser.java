@@ -211,5 +211,9 @@ public class DataUser {
         return favorites;
     }
 
+    public void deleteFavorites (Long idUser , Long idBus){
+        database.execSQL("delete from favoritesBusesUsers where  idUser = "+idUser+" and " +
+                " idBus = "+idBus+"");
+    }
 
 }

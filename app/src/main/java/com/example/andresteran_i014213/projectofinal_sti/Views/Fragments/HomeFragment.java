@@ -6,7 +6,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -45,14 +47,13 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     View view;
-    ProgressBar loader;
+    SwipeRefreshLayout swipeRefreshLayout;
     ListView listaFavor;
-    List<User> myUser;
-    UserAdapter adapterUser;
     DataUser dataUser;
     FavoriteBusAdapter adapterFavorites;
     List<Bus> busList;
-    BusAdapter busAdapter;
+    Bus bus;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -62,27 +63,19 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_home, container, false);
-        loader = (ProgressBar) view.findViewById(R.id.loader);
-        //myRecycler = (RecyclerView) view.findViewById(R.id.myRecycler);
         listaFavor = (ListView) view.findViewById(R.id.id_lv_fovorites);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.id_fragment_home_swipe);
         dataUser = new DataUser(getActivity());
         dataUser.open();
         LoginActivity.userLogin = dataUser.checkStatusLogin();
 
 
-        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        //myRecycler.setLayoutManager(linearLayoutManager);
-
         showTolbar(getResources().getString(R.string.txt_title_toolbar_Container),true);
         setHasOptionsMenu(true); // para poder poner toolbar  en fragmento
-        //onClickButton();
 
-
-        //mysFavorites = dataUser.findAllFavorites();
-        //adapterFavorites = new FavoritesAdapter(getActivity().getApplicationContext(),mysFavorites);
-        //listaFavor.setAdapter(adapterFavorites);
 
         busList = dataUser.listFavorites(LoginActivity.userLogin.getId());
         if (busList.size()<=0) Toast.makeText(getActivity().getApplicationContext(), " no hay Favoritos", Toast.LENGTH_SHORT).show();
@@ -92,13 +85,13 @@ public class HomeFragment extends Fragment {
             registerForContextMenu(listaFavor);
         }
 
-        listaFavor.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bus bus=(Bus) parent.getItemAtPosition(position);
-                Toast.makeText(getActivity().getApplicationContext(),bus.getNeighborhood(), Toast.LENGTH_SHORT).show();
+            public void onRefresh() {
+                swipeRefresh();
             }
         });
+
         return view;
     }
 
@@ -135,14 +128,37 @@ public class HomeFragment extends Fragment {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        bus = adapterFavorites.getItem(info.position);
         switch (item.getItemId()){
             case R.id.id_item_menu_more_Information:
                 Toast.makeText(getActivity().getApplicationContext(),"Mas informacion", Toast.LENGTH_SHORT).show();
                 return (true);
             case  R.id.id_item_menu_favorite:
-                Toast.makeText(getActivity().getApplicationContext(),"Se ha desmarcado como favorito", Toast.LENGTH_SHORT).show();
+                dataUser.deleteFavorites(LoginActivity.userLogin.getId(),bus.getId());
+                Toast.makeText(getActivity().getApplicationContext(),"Se ha Descartado como Favorito la ruta: " + bus.getRoute(), Toast.LENGTH_SHORT).show();
                 return true;
         }
         return super.onContextItemSelected(item);
     }
+
+    private void swipeRefresh(){
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                busList = dataUser.listFavorites(LoginActivity.userLogin.getId());
+                if (busList.size()<=0) Toast.makeText(getActivity().getApplicationContext(), " no hay Favoritos", Toast.LENGTH_SHORT).show();
+                else {
+                    adapterFavorites = new FavoriteBusAdapter(getActivity().getApplicationContext(),busList);
+                    listaFavor.setAdapter(adapterFavorites);
+                    registerForContextMenu(listaFavor);
+                }
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }, 1000);
+
+
+    }
+
 }

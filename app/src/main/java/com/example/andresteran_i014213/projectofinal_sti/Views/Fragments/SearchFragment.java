@@ -94,7 +94,7 @@ public class SearchFragment extends Fragment {
             }
         });
 
-
+// el busesList que compare los buses con los de buses favoritos  y asi cuando encuentre uno
 
         return view;
     }

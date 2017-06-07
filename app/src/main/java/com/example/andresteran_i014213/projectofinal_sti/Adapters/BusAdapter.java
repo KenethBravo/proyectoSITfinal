@@ -65,7 +65,7 @@ public class BusAdapter  extends BaseAdapter {
                     CheckBox cb = (CheckBox) v;
                     Bus bus = (Bus) cb.getTag();
                     Toast.makeText(context,
-                            "Ruta: "+bus.getId()+" con Barrio: "+ bus.getNeighborhood() +
+                            "Ruta: "+bus.getRoute()+" con Barrio: "+ bus.getNeighborhood() +
                                     (cb.isChecked()? " Se ha marcado como Favorito" : " ha dejado de ser Favorito"),
                             Toast.LENGTH_SHORT).show();
                     if (cb.isChecked()){

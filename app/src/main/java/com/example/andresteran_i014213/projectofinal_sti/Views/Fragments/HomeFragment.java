@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.andresteran_i014213.projectofinal_sti.Adapters.BusAdapter;
+import com.example.andresteran_i014213.projectofinal_sti.Adapters.FavoriteBusAdapter;
 import com.example.andresteran_i014213.projectofinal_sti.Adapters.FavoritesAdapter;
 import com.example.andresteran_i014213.projectofinal_sti.Adapters.UserAdapter;
 import com.example.andresteran_i014213.projectofinal_sti.Data.DataUser;
@@ -44,12 +46,11 @@ public class HomeFragment extends Fragment {
 
     View view;
     ProgressBar loader;
-    ListView lista, listaFavor;
+    ListView listaFavor;
     List<User> myUser;
     UserAdapter adapterUser;
     DataUser dataUser;
-    List<Favorites> mysFavorites;
-    FavoritesAdapter adapterFavorites;
+    FavoriteBusAdapter adapterFavorites;
     List<Bus> busList;
     BusAdapter busAdapter;
 
@@ -65,7 +66,6 @@ public class HomeFragment extends Fragment {
         view=inflater.inflate(R.layout.fragment_home, container, false);
         loader = (ProgressBar) view.findViewById(R.id.loader);
         //myRecycler = (RecyclerView) view.findViewById(R.id.myRecycler);
-        lista = (ListView) view.findViewById(R.id.id_lv_mylist);
         listaFavor = (ListView) view.findViewById(R.id.id_lv_fovorites);
         dataUser = new DataUser(getActivity());
         dataUser.open();
@@ -87,91 +87,20 @@ public class HomeFragment extends Fragment {
         busList = dataUser.listFavorites(LoginActivity.userLogin.getId());
         if (busList.size()<=0) Toast.makeText(getActivity().getApplicationContext(), " no hay Favoritos", Toast.LENGTH_SHORT).show();
         else {
-            busAdapter = new BusAdapter(getActivity().getApplicationContext(),busList);
-            listaFavor.setAdapter(busAdapter);}
+            adapterFavorites = new FavoriteBusAdapter(getActivity().getApplicationContext(),busList);
+            listaFavor.setAdapter(adapterFavorites);
+            registerForContextMenu(listaFavor);
+        }
+
+        listaFavor.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bus bus=(Bus) parent.getItemAtPosition(position);
+                Toast.makeText(getActivity().getApplicationContext(),bus.getNeighborhood(), Toast.LENGTH_SHORT).show();
+            }
+        });
         return view;
     }
-
-    /*
-    // codigo
-
-    // Metodo para validar la conexion a internet
-    public Boolean isOnLine(){
-        ConnectivityManager connec = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = connec.getActiveNetworkInfo();
-
-        if (netInfo != null && netInfo.isConnectedOrConnecting()){
-            return true;
-        }else {
-            return false;
-        }
-    }
-
-    // Medodo para manejar el evento del item del menu
-    public void onClickButton(){
-        if (isOnLine()){
-            MyTask task = new MyTask();
-            task.execute("https://jsonplaceholder.typicode.com/users");
-            //Toast.makeText(getActivity(), "Funciona", Toast.LENGTH_SHORT).show();
-        }else {
-            Toast.makeText(getActivity(), "Sin conexión", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    // Tarea asincrona para obtener los datos desde internet
-    private class MyTask extends AsyncTask<String, String, String> {
-        @Override
-        protected void onPreExecute() {
-
-            super.onPreExecute();
-            loader.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            String content = null;
-            try {
-                content = HttpManager.getData(params[0]);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return content;
-        }
-
-        @Override
-        protected void onProgressUpdate(String... values) {
-
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            try {
-                myUser = Json.parserJsonUser(s);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            cargarDatos();
-            loader.setVisibility(View.GONE);
-        }
-
-        public void cargarDatos() {
-
-            // Crear un objeto de tipo "PostAdapter" y retorna el item de mi layout (item.xml)
-            //myAdapter = new UserAdapter(getActivity().getApplicationContext(), myUser);
-            // inyectar el item en mi RecyclerView
-            //myRecycler.setAdapter(myAdapter);
-
-            }
-        }*/
-
-    //codigo
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -197,4 +126,23 @@ public class HomeFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.favorites_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.id_item_menu_more_Information:
+                Toast.makeText(getActivity().getApplicationContext(),"Mas informacion", Toast.LENGTH_SHORT).show();
+                return (true);
+            case  R.id.id_item_menu_favorite:
+                Toast.makeText(getActivity().getApplicationContext(),"Se ha desmarcado como favorito", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return super.onContextItemSelected(item);
+    }
 }

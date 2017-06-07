@@ -103,5 +103,4 @@ public class BusAdapter  extends BaseAdapter {
         }
     }
 
-
 }

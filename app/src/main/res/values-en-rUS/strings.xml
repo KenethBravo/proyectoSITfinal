@@ -56,6 +56,8 @@
     <string name="str_itm_route">RUTA</string>
     <string name="str_itm_neighborhood">Barrio</string>
     <string name="txt_search_bus">Buscando</string>
+    <string name="item_favorites_menu_desmarcar">Quitar Favorito</string>
+    <string name="item_favorites_menu_more_information">Mas Informacion Bus</string>
 
 
 </resources>

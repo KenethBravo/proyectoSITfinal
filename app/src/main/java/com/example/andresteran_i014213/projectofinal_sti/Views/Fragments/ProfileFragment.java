@@ -42,7 +42,7 @@ public class ProfileFragment extends Fragment {
     View view;
     List<User> userList;
     DataUser dataUser;
-    TextView name;
+    TextView name,email;
     User user;
     Button signOff;
 
@@ -60,17 +60,21 @@ public class ProfileFragment extends Fragment {
 
         name = (TextView) view.findViewById(R.id.id_txt_profile_name);
         signOff = (Button) view.findViewById(R.id.id_btn_fragment_profile_Sign_off);
+        email = (TextView) view.findViewById(R.id.id_txt_profile_email);
 
         dataUser = new DataUser(getActivity());
         dataUser.open();
         user = dataUser.checkStatusLogin();
+
+        name.setText(user.getName());
+        email.setText(user.getEmail());
 
         signOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Toast.makeText(getActivity().getApplicationContext(), getString(R.string.txt_sign_off), Toast.LENGTH_SHORT).show();
-                 dataUser.statusOff(user.getUsername(),user.getPassword());
+                dataUser.statusOff(user.getUsername(),user.getPassword());
                 goLogginActivity();
             }
         });

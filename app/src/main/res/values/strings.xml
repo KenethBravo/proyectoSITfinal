@@ -56,4 +56,6 @@
     <string name="str_itm_route_bus">C?</string>
     <string name="str_itm_neighborhood_bus">\???????????</string>
     <string name="txt_search_bus">No se encontro niguna ruta o barrio con: </string>
+    <string name="item_favorites_menu_desmarcar">Quitar Favorito</string>
+    <string name="item_favorites_menu_more_information">Mas Informacion Bus</string>
 </resources>

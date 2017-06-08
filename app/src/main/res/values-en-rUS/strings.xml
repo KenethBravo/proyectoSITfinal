@@ -53,14 +53,21 @@
     <string name="txt_home_info">SIT system users</string>
     <string name="info_profile_email">pedroCampos@gmail.com</string>
     <string name="str_fragment_profile_email">Email:</string>
-    <string name="str_itm_route">RUTA</string>
-    <string name="str_itm_neighborhood">Barrio</string>
-    <string name="txt_search_bus">Buscando</string>
-    <string name="item_favorites_menu_desmarcar">Quitar Favorito</string>
-    <string name="item_favorites_menu_more_information">Mas Informacion Bus</string>
-    <string name="str_itm_favorite_route">RUTA</string>
-    <string name="str_itm_favorite_neighborhood">BARRIO</string>
-    <string name="txt_title_toolbar_Container_home">Rutas Favoritas</string>
+    <string name="str_itm_route">Route</string>
+    <string name="str_itm_neighborhood">Neighborhood</string>
+    <string name="txt_search_bus">Searching</string>
+    <string name="item_favorites_menu_desmarcar">Remove favorite</string>
+    <string name="item_favorites_menu_more_information"> More Bus Information </string>
+    <string name="str_itm_favorite_route">Route</string>
+    <string name="str_itm_favorite_neighborhood">Neighborhood</string>
+    <string name="txt_title_toolbar_Container_home">Favorites Roues</string>
+    <string name="txt_field_favorites">No Favorites</string>
+    <string name="txt_descart_favorite">The route has been discarded as a Favorite: </string>
+    <string name="txt_neighborhood_routes">Neighborhoods of the Route: </string>
+    <string name="txt_route_search">Route:</string>
+    <string name="txt_neighborhood_routes_search"> - Neighborhoods: </string>
+    <string name="txt_check_true"> Marked as Favorite </string>
+    <string name="txt_check_false"> Stop being Favorite </string>
 
 
 </resources>

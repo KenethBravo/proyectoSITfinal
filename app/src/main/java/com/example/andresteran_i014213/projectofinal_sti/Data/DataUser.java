@@ -211,6 +211,12 @@ public class DataUser {
         return favorites;
     }
 
+    public List<Bus> listRouesBus(String route){
+        Cursor cursor = database.rawQuery("select * from buses where  route= '"+route+"'", null);
+        List<Bus> favorites = cursorToListBus(cursor);
+        return favorites;
+    }
+
     public void deleteFavorites (Long idUser , Long idBus){
         database.execSQL("delete from favoritesBusesUsers where  idUser = "+idUser+" and " +
                 " idBus = "+idBus+"");

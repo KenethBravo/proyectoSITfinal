@@ -69,7 +69,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                     listarusuarios = dataUser.findAll();
                     adapterUser = new UserAdapter(getApplicationContext(), listarusuarios);
                     lista.setAdapter(adapterUser);
-                    //goLogginActivity();
+                    goLogginActivity();
                 }
             }
         });

@@ -64,16 +64,15 @@ public class BusAdapter  extends BaseAdapter {
                 public void onClick(View v) {
                     CheckBox cb = (CheckBox) v;
                     Bus bus = (Bus) cb.getTag();
-                    Toast.makeText(context,
-                            "Ruta: "+bus.getRoute()+" con Barrio: "+ bus.getNeighborhood() +
-                                    (cb.isChecked()? " Se ha marcado como Favorito" : " ha dejado de ser Favorito"),
+                    Toast.makeText(context, context.getString(R.string.txt_route_search)
+                            +bus.getRoute()+ context.getString(R.string.txt_neighborhood_routes_search) + bus.getNeighborhood() +
+                                    (cb.isChecked()? context.getString(R.string.txt_check_true) : context.getString(R.string.txt_check_false) ),
                             Toast.LENGTH_SHORT).show();
                     if (cb.isChecked()){
                         SearchFragment.busFavorite=bus;
                         SearchFragment.createDataFavorite();
                     }
                     bus.setCheck(cb.isChecked());
-
                 }
             });
 

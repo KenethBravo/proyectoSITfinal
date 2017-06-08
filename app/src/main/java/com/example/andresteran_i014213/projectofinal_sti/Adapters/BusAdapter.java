@@ -80,11 +80,13 @@ public class BusAdapter  extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+
         Bus bus = getItem(position);
         viewHolder.route.setText(bus.getRoute());
         viewHolder.neighborhood.setText(bus.getNeighborhood());
         viewHolder.checkFavorite.setText(bus.getRoute());
         viewHolder.checkFavorite.setChecked(bus.isCheck());
+        if (viewHolder.checkFavorite.isChecked()==true) viewHolder.checkFavorite.setEnabled(false);
         viewHolder.checkFavorite.setTag(bus);
 
         return convertView;

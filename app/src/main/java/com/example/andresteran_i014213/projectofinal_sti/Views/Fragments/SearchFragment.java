@@ -38,6 +38,7 @@ public class SearchFragment extends Fragment {
 
     View view;
     List<Bus> busesList;
+    List<Bus> busesFavorites;
     public static DataUser dataBus;
     ListView listView;
     BusAdapter busAdapter;
@@ -85,12 +86,43 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
                 find= findBus.getText().toString();
                 busesList = dataBus.findBuses(find.toUpperCase());
-                if (busesList.size()<=0){
-                    Toast.makeText(getActivity().getApplicationContext(), getString(R.string.txt_search_bus) + findBus.getText().toString()  , Toast.LENGTH_SHORT).show();
-                }else{
-                    busAdapter = new BusAdapter(getActivity().getApplicationContext(), busesList);
-                    listView.setAdapter(busAdapter);
+                busesFavorites = dataBus.listFavorites(LoginActivity.userLogin.getId());
+
+                if (busesFavorites.size()<=0) {
+
+                    if (busesList.size() <= 0) {
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.txt_search_bus) + findBus.getText().toString(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        busAdapter = new BusAdapter(getActivity().getApplicationContext(), busesList);
+                        listView.setAdapter(busAdapter);
+                    }
+
+                }else
+                {
+                    if (busesList.size() <= 0) {
+                        Toast.makeText(getActivity().getApplicationContext(), getString(R.string.txt_search_bus) + findBus.getText().toString(), Toast.LENGTH_SHORT).show();
+                    } else {
+
+                        for (int i=0; i< busesList.size();i++){
+
+                            for (int y=0; y< busesFavorites.size();y++){
+
+                                if(busesList.get(i).getId()==busesFavorites.get(y).getId()){
+                                    busesList.get(i).setCheck(true);
+                                }
+
+                            }
+
+                        }
+
+                        busAdapter = new BusAdapter(getActivity().getApplicationContext(), busesList);
+                        listView.setAdapter(busAdapter);
+
+                    }
+
                 }
+
+
             }
         });
 

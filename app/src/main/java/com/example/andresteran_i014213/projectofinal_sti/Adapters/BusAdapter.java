@@ -69,6 +69,7 @@ public class BusAdapter  extends BaseAdapter {
                                     (cb.isChecked()? context.getString(R.string.txt_check_true) : context.getString(R.string.txt_check_false) ),
                             Toast.LENGTH_SHORT).show();
                     if (cb.isChecked()){
+                        cb.setEnabled(false);
                         SearchFragment.busFavorite=bus;
                         SearchFragment.createDataFavorite();
                     }

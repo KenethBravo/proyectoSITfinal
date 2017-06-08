@@ -23,9 +23,6 @@ public class CreateAccountActivity extends AppCompatActivity {
     Button createAccount;
     EditText name,username,email,password, passwordConfirm;
     DataUser dataUser;
-    ListView lista;
-    List<User> listarusuarios;
-    UserAdapter adapterUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +37,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.id_account_email);
         password = (EditText) findViewById(R.id.id_account_paswordAcount);
         passwordConfirm  = (EditText) findViewById(R.id.id_account_paswordConfirm);
-        lista = (ListView) findViewById(R.id.id_lv_mylist);
 
 
         dataUser = new DataUser(this);
@@ -66,9 +62,6 @@ public class CreateAccountActivity extends AppCompatActivity {
                 {
                     createData();
                     Toast.makeText(getApplicationContext(),getString(R.string.txt_succesfully_account), Toast.LENGTH_SHORT).show();
-                    listarusuarios = dataUser.findAll();
-                    adapterUser = new UserAdapter(getApplicationContext(), listarusuarios);
-                    lista.setAdapter(adapterUser);
                     goLogginActivity();
                 }
             }

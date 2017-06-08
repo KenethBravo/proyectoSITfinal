@@ -51,7 +51,7 @@ public class FavoriteBusAdapter extends BaseAdapter {
         ViewHolder viewHolder;
 
         if (convertView == null){
-            convertView = layoutInflater.inflate(R.layout.item, parent, false);
+            convertView = layoutInflater.inflate(R.layout.item_favorite, parent, false);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
 
@@ -71,8 +71,8 @@ public class FavoriteBusAdapter extends BaseAdapter {
         TextView neighborhood;
 
         public ViewHolder(View item) {
-            route = (TextView) item.findViewById(R.id.id_item_name);
-            neighborhood = (TextView) item.findViewById(R.id.id_item_email);
+            route = (TextView) item.findViewById(R.id.id_item_favorite_route);
+            neighborhood = (TextView) item.findViewById(R.id.id_item_favorite_neighborhood);
         }
     }
 

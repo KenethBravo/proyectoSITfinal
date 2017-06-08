@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment {
         LoginActivity.userLogin = dataUser.checkStatusLogin();
 
 
-        showTolbar(getResources().getString(R.string.txt_title_toolbar_Container),true);
+        showTolbar(getResources().getString(R.string.txt_title_toolbar_Container_home),true);
         setHasOptionsMenu(true); // para poder poner toolbar  en fragmento
 
 
